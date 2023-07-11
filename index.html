@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Website</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="bg-gray-800 py-4">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <a href="#" class="text-white text-lg font-semibold">Sentiment analysis </a>
+
+      <div class="space-x-4">
+        <a href="#" class="text-white">About</a>
+        <a href="#" class="text-white">Github</a>
+        <a href="#" class="text-white">Docs</a>
+        <a href="#" class="text-white">Demo</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- About Section -->
+  <section class="bg-gray-100 py-8">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-4">About Us</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-white p-4 shadow rounded">
+          <h3 class="text-xl font-bold mb-2">Phan Văn Thiện</h3>
+          <p> 21522628</p>
+        </div>
+        <div class="bg-white p-4 shadow rounded">
+          <h3 class="text-xl font-bold mb-2">Thân Nguyễn Đức Hải</h3>
+          <p> 21522628 </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Section -->
+  <section class="bg-gray-200 py-8">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-4">Demo</h2>
+      <form id="demoForm" class="mb-4">
+        <label class="block mb-2" for="textInput">Enter Text:</label>
+        <textarea id="textInput" class="w-full p-2 border border-gray-300 rounded" rows="5" placeholder="Enter your text here"></textarea>
+        <button type="submit" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Analyze</button>
+      </form>
+      <div id="result" class="hidden">
+        <h2 class="text-lg font-bold mb-2">Result:</h2>
+        <p id="sentimentText" class="p-2 border border-gray-300 rounded w-full"></p>
+      </div>
+    </div>
+  </section>
+<script src="script.js"></script>
+  <!-- <script>
+    const form = document.getElementById('demoForm');
+    const resultContainer = document.getElementById('result');
+    const sentimentText = document.getElementById('sentimentText');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const textInput = document.getElementById('textInput').value;
+
+      // Perform sentiment analysis on the text input
+      const sentiment = analyzeSentiment(textInput);
+
+      // Update the result container with the sentiment
+      sentimentText.textContent = sentiment;
+      resultContainer.classList.remove('hidden');
+    });
+
+    // Function to analyze sentiment (replace with your own implementation)
+    function analyzeSentiment(text) {
+      // Implement your sentiment analysis logic here
+      // Return the sentiment result as a string (e.g., "Positive", "Negative", "Neutral")
+      return "Positive";
+    }
+  </script> -->
+  
+</body>
+</html>
