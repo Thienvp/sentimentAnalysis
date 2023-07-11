@@ -5,7 +5,7 @@ document.getElementById('demoForm').addEventListener('submit', function (event) 
     var inputText = document.getElementById('textInput').value;
   
     // Gửi yêu cầu HTTP POST đến API /predict
-    axios.post('127.0.0.1/predict', {
+    axios.post('http://127.0.0.1/predict', {
         text: inputText
       })
       .then(function (response) {
