@@ -3,20 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
+  <title>Sentiment Analysis</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <!-- Navbar -->
   <nav class="bg-gray-800 py-4">
     <div class="container mx-auto flex justify-between items-center px-4">
-      <a href="#" class="text-white text-lg font-semibold">Sentiment analysis </a>
-
+      <a href="#" class="text-white text-lg font-semibold">Sentiment Analysis</a>
       <div class="space-x-4">
         <a href="#" class="text-white">About</a>
-        <a href="#" class="text-white">Github</a>
+        <a href="#" class="text-white">GitHub</a>
         <a href="#" class="text-white">Docs</a>
         <a href="#" class="text-white">Demo</a>
       </div>
@@ -30,57 +28,80 @@
       <div class="grid grid-cols-2 gap-4">
         <div class="bg-white p-4 shadow rounded">
           <h3 class="text-xl font-bold mb-2">Phan Văn Thiện</h3>
-          <p> 21522628</p>
+          <p>21522628</p>
         </div>
         <div class="bg-white p-4 shadow rounded">
           <h3 class="text-xl font-bold mb-2">Thân Nguyễn Đức Hải</h3>
-          <p> 21522628 </p>
+          <p>21522628</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Demo Section -->
-  <section class="bg-gray-200 py-8">
-    <div class="container mx-auto px-4">
-      <h2 class="text-2xl font-bold mb-4">Demo</h2>
-      <form id="demoForm" class="mb-4">
-        <label class="block mb-2" for="textInput">Enter Text:</label>
-        <textarea id="textInput" class="w-full p-2 border border-gray-300 rounded" rows="5" placeholder="Enter your text here"></textarea>
-        <button type="submit" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Analyze</button>
-      </form>
-      <div id="result" class="hidden">
+  <section class="bg-white-200 py-8">
+    <div class="container mx-auto px-4 flex flex-wrap">
+      <div class="w-full md:w-1/2">
+        <h2 class="text-2xl font-bold mb-4">Demo</h2>
+        <form id="demoForm" class="mb-4">
+          <label class="block mb-2 text-lg font-bold" for="textInput">Enter Text:</label>
+          <textarea id="textInput" class="w-full p-2 border border-gray-300 rounded-lg" rows="5" placeholder="Enter your text here"></textarea>
+          <button type="submit" class="mt-2 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300 ease-in-out">Analyze</button>
+        </form>
+
+      </div>
+  
+      <div class="w-full md:w-1/2 flex justify-end">
         <h2 class="text-lg font-bold mb-2">Result:</h2>
-        <p id="sentimentText" class="p-2 border border-gray-300 rounded w-full"></p>
+
+        <canvas id="chart" width="400" height="400"></canvas>
+        <div id="result" class="hidden">
+          <p id="sentimentText" class="p-2 border border-gray-300 rounded w-full"></p>
+        </div>
       </div>
     </div>
   </section>
-<script src="script.js"></script>
-  <!-- <script>
-    const form = document.getElementById('demoForm');
-    const resultContainer = document.getElementById('result');
-    const sentimentText = document.getElementById('sentimentText');
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const textInput = document.getElementById('textInput').value;
-
-      // Perform sentiment analysis on the text input
-      const sentiment = analyzeSentiment(textInput);
-
-      // Update the result container with the sentiment
-      sentimentText.textContent = sentiment;
-      resultContainer.classList.remove('hidden');
-    });
-
-    // Function to analyze sentiment (replace with your own implementation)
-    function analyzeSentiment(text) {
-      // Implement your sentiment analysis logic here
-      // Return the sentiment result as a string (e.g., "Positive", "Negative", "Neutral")
-      return "Positive";
-    }
-  </script> -->
   
+  
+  
+  <script >
+    document.getElementById('demoForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+    
+      // Lấy giá trị từ trường văn bản
+      var inputText = document.getElementById('textInput').value;
+      fetch('http://192.168.28.60:8000/predict?text='+inputText)
+      .then((response)=>response.json() )
+      .then((data)=>{
+          // Hiển thị kết quả từ API
+          var resultDiv = document.getElementById('result');
+          var sentimentText = document.getElementById('sentimentText');
+          sentimentText.innerText = 'Label: ' + data.message + '\nScore: ' + data.score;
+          resultDiv.classList.remove('hidden');
+          var chart_data = {
+            labels: [ ],
+            datasets: [{
+              data: [data.score, 1- data.score],
+              backgroundColor: ["#000000","#FFFFFF" ],
+              borderColor: ["#000000", "#000000"],
+              hoverBorderColor:["#000000", "#000000"],
+              hoverBackgroundColor: ["#FFFFFF", "#36A2EB"]
+            }]
+          };
+          var ctx = document.getElementById("chart").getContext("2d");
+          var doughnutChart = new Chart(ctx, {
+            type: "doughnut",
+            data: chart_data,
+            options: {
+              responsive: false,
+              cutout :"40%",
+              circumference:"180",
+              rotation:"270"
+            }
+          });
+        })
+    });
+    
+  </script>
 </body>
 </html>
