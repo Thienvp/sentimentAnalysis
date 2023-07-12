@@ -70,7 +70,7 @@
     
       // Lấy giá trị từ trường văn bản
       var inputText = document.getElementById('textInput').value;
-      fetch('http://192.168.28.60:8000/predict?text='+inputText)
+      fetch('http://192.168.28.60:6000/predict?text='+inputText)
       .then((response)=>response.json() )
       .then((data)=>{
           // Hiển thị kết quả từ API
