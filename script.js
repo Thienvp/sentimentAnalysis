@@ -5,10 +5,10 @@ document.getElementById('demoForm').addEventListener('submit', function (event) 
     var inputText = document.getElementById('textInput').value;
   
     // Gửi yêu cầu HTTP POST đến API /predict
-    axios.post('http://127.0.0.1/predict', {
+    axios.get('http://127.0.0.1/predict?text=' + inputText, {
         text: inputText
       })
-      .then(function (response) {
+      .then((response) {
         // Hiển thị kết quả từ API
         var resultDiv = document.getElementById('result');
         var sentimentText = document.getElementById('sentimentText');
