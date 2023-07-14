@@ -5,3 +5,5 @@
 Khởi chạy : `uvicorn main::app --reload`
 ## index.html 
 Được viết bằng html và js thuần để hiển thị label và score đầu ra.
+
+## Docs: [Tài liệu báo cáo chi tiết](https://drive.google.com/file/d/1k2-4b9NscGFdiHJQ8mhOJBSj1CrNwtbi/view?usp=sharing)
